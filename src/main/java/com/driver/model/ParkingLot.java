@@ -46,7 +46,7 @@ public class ParkingLot {
     }
 
     public void setAddress(String address) {
-        address = address;
+        this.address = address;
     }
 
     public List<Spot> getSpotList() {
