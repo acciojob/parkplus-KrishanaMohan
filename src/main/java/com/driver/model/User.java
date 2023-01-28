@@ -23,6 +23,9 @@ public class User {
         this.reservationList = reservationList;
     }
 
+    public User() {
+    }
+
     public User(String name, String phoneNo, String password) {
         this.name = name;
         this.phoneNo = phoneNo;

@@ -11,7 +11,7 @@ public class Spot {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private int id;
     private SpotType spotType;
-    private int pricePerHours;
+    private int pricePerHour;
     private Boolean occupied;
     @ManyToOne
     @JoinColumn
@@ -20,8 +20,8 @@ public class Spot {
     @OneToMany (mappedBy = "spot",cascade = CascadeType.ALL)
     private List<Reservation>reservationList;
 
-    public Spot(int pricePerHours) {
-        this.pricePerHours = pricePerHours;
+    public Spot() {
+
         this.occupied=false;
 
     }
@@ -43,11 +43,11 @@ public class Spot {
     }
 
     public int getPricePerHours() {
-        return pricePerHours;
+        return pricePerHour;
     }
 
     public void setPricePerHours(int pricePerHours) {
-        this.pricePerHours = pricePerHours;
+        this.pricePerHour = pricePerHours;
     }
 
     public Boolean getOccupied() {

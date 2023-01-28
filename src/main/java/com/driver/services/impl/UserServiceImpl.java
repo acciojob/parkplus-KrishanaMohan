@@ -25,12 +25,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(Integer userId) {
         User user =userRepository4.findById(userId).get();
-//        List<Reservation>list=user.getReservationList();
-//        for(Reservation reservation:list){
-//            Spot spot=reservation.getSpot();
-//            spot.setOccupied(false);
-//            spotRepository.save(spot);
-//        }
+        List<Reservation>list=user.getReservationList();
+        for(Reservation reservation:list){
+            Spot spot=reservation.getSpot();
+            spot.setOccupied(false);
+            spotRepository.save(spot);
+        }
 
         userRepository4.delete(user);
 

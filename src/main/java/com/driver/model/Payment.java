@@ -15,6 +15,11 @@ public class Payment {
     public Payment() {
     }
 
+    public Payment(Boolean paymentComplete, PaymentMode paymentMode) {
+        this.paymentComplete = paymentComplete;
+        this.paymentMode = paymentMode;
+    }
+
     public int getId() {
         return id;
     }

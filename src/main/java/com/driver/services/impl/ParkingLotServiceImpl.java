@@ -20,7 +20,9 @@ public class ParkingLotServiceImpl implements ParkingLotService {
     SpotRepository spotRepository1;
     @Override
     public ParkingLot addParkingLot(String name, String address) {
-        ParkingLot newParkingLot=new ParkingLot(name,address);
+        ParkingLot newParkingLot=new ParkingLot();
+        newParkingLot.setAddress(address);
+        newParkingLot.setName(name);
         parkingLotRepository1.save(newParkingLot);
         return newParkingLot;
 
@@ -29,7 +31,8 @@ public class ParkingLotServiceImpl implements ParkingLotService {
 
     @Override
     public Spot addSpot(int parkingLotId, Integer numberOfWheels, Integer pricePerHour) {
-           Spot newSpot=new Spot(pricePerHour);
+           Spot newSpot=new Spot();
+           newSpot.setPricePerHours(pricePerHour);
 
            if(numberOfWheels==4){
                newSpot.setSpotType(SpotType.FOUR_WHEELER);
