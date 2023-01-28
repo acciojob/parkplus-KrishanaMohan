@@ -26,21 +26,17 @@ public class PaymentServiceImpl implements PaymentService {
         Payment payment=new Payment();
 
         Reservation reservation=reservationRepository2.findById(reservationId).get();
-        if(reservation==null) {
-
-            throw new Exception("Reservation is not Available");
-        }
 
         Spot spot=reservation.getSpot();
         int time=spot.getPricePerHour();
         int cost=time*reservation.getNumberOfHours();
         if(cost>amountSent){
-           fail(reservationId);
+          // fail(reservationId);
             throw new Exception("Insufficient Amount");
         }
 
         if(mode!="cash"&& mode!="upi" && mode!="card") {
-            fail(reservationId);
+          //  fail(reservationId);
             throw new Exception("Payment mode not detected");
         }
 
@@ -58,22 +54,22 @@ public class PaymentServiceImpl implements PaymentService {
         payment.setPaymentCompleted(true);
         reservation.setPayment(payment);
         payment.setReservation(reservation);
-        spot.setOccupied(false);
-        spotRepository.save(spot);
+      //  spot.setOccupied(false);
+     //   spotRepository.save(spot);
         reservationRepository2.save(reservation);
-        paymentRepository2.save(payment);
+       // paymentRepository2.save(payment);
 
         return payment;
     }
-    public void fail(Integer reservationId){
-        Payment payment=new Payment();
-        payment.setPaymentCompleted(false);
-        Reservation reservation=reservationRepository2.findById(reservationId).get();
-        reservation.setPayment(payment);
-        payment.setReservation(reservation);
-       // reservationRepository2.save(reservation);
-        paymentRepository2.save(payment);
-
-    }
+//    public void fail(Integer reservationId){
+//        Payment payment=new Payment();
+//        payment.setPaymentCompleted(false);
+//        Reservation reservation=reservationRepository2.findById(reservationId).get();
+//        reservation.setPayment(payment);
+//        payment.setReservation(reservation);
+//       // reservationRepository2.save(reservation);
+//        paymentRepository2.save(payment);
+//
+//    }
 
 }
