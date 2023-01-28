@@ -40,14 +40,11 @@ public class ParkingLotServiceImpl implements ParkingLotService {
 
         ParkingLot parkingLot=parkingLotRepository1.findById(parkingLotId).get();
         List<Spot>list=parkingLot.getSpotList();
-        if(list==null)
-            list=new ArrayList<>();
         list.add(newSpot);
         parkingLot.setSpotList(list);
         newSpot.setParkingLot(parkingLot);
 
         parkingLotRepository1.save(parkingLot);
-
         return newSpot;
     }
 
@@ -60,13 +57,15 @@ public class ParkingLotServiceImpl implements ParkingLotService {
     public Spot updateSpot(int parkingLotId, int spotId, int pricePerHour) {
 
       ParkingLot parkingLot=parkingLotRepository1.findById(parkingLotId).get();
-      Spot spot=spotRepository1.findById(spotId).get();
-
-      //parkingLot.getSpotList().remove(spot);
+      Spot spot=null;
+      List<Spot>spotList=parkingLot.getSpotList();
+      for(Spot spot1:spotList){
+          if(spot1.getId()==spotId)
+              spot=spot1;
+      }
       spot.setPricePerHour(pricePerHour);
-    //  parkingLot.getSpotList().add(spot);
-
         spotRepository1.save(spot);
+
        return spot;
 
     }

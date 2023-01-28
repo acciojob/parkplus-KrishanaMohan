@@ -22,34 +22,44 @@ public class ReservationServiceImpl implements ReservationService {
     ReservationRepository reservationRepository3;
     @Autowired
     ParkingLotRepository parkingLotRepository3;
+
+
     @Override
     public Reservation reserveSpot(Integer userId, Integer parkingLotId, Integer timeInHours, Integer numberOfWheels) throws Exception {
        ParkingLot parkingLot =parkingLotRepository3.findById(userId).get();
-       if(parkingLot==null)
+       User user=userRepository3.findById(userId).get();
+       if(user==null || parkingLot==null)
            throw new Exception("Cannot make reservation");
 
        List<Spot>list=parkingLot.getSpotList();
       Boolean spaceAvailable=false;
+
+      int price=Integer.MAX_VALUE;
       Spot spot=null;
-      if(list!=null) {
-          for (int i = 0; i < list.size(); i++) {
-              spot = list.get(i);
-              if (spot != null && !spot.getOccupied()) {
-                  if (spot.getSpotType() == SpotType.FOUR_WHEELER && 4 >= numberOfWheels) {
+          for (Spot spot1:list) {
+              if (!spot1.getOccupied()) {
+                  int newprice=timeInHours*spot1.getPricePerHour();
+                  if (spot.getSpotType().equals(SpotType.TWO_WHEELER) && 2 >= numberOfWheels && price>newprice) {
+                      price=newprice;
                       spaceAvailable = true;
-                      break;
+                      spot=spot1;
+
                   }
-                  if (spot.getSpotType() == SpotType.TWO_WHEELER && 2 >= numberOfWheels) {
+                  if (spot.getSpotType().equals(SpotType.FOUR_WHEELER) && 4 >= numberOfWheels && price>newprice) {
+                      price=newprice;
                       spaceAvailable = true;
-                      break;
+                      spot=spot1;
                   }
-                  if (spot.getSpotType() == SpotType.TWO_WHEELER) {
+
+                  if (spot.getSpotType().equals(SpotType.OTHERS) && price>newprice) {
+                      price=newprice;
                       spaceAvailable = true;
-                      break;
+                      spot=spot1;
+
                   }
               }
           }
-      }
+
        if(!spaceAvailable)
            throw new Exception("Cannot make reservation");
 
@@ -57,19 +67,14 @@ public class ReservationServiceImpl implements ReservationService {
        Reservation reservation=new Reservation(timeInHours);
 
        List<Reservation> reservationList=spot.getReservationList();
-       if(reservationList==null)
-           reservationList=new ArrayList<>();
-       //bidirection mapping
+
        reservationList.add(reservation);
        spot.setReservationList(reservationList);
        reservation.setSpot(spot);
 
 
-        User user=userRepository3.findById(userId).get();
-
         List<Reservation>reservationList1=user.getReservationList();
-        if(reservationList1==null)
-            reservationList1=new ArrayList<>();
+
         reservationList1.add(reservation);
         user.setReservationList(reservationList1);
         reservation.setUser(user);

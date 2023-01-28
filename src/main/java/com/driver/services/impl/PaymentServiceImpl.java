@@ -31,45 +31,34 @@ public class PaymentServiceImpl implements PaymentService {
         int time=spot.getPricePerHour();
         int cost=time*reservation.getNumberOfHours();
         if(cost>amountSent){
-          // fail(reservationId);
             throw new Exception("Insufficient Amount");
         }
 
-        if(mode!="cash"&& mode!="upi" && mode!="card") {
-          //  fail(reservationId);
+        if(!mode.equalsIgnoreCase("cash") && !mode.equalsIgnoreCase("card") && !mode.equalsIgnoreCase("upi")) {
             throw new Exception("Payment mode not detected");
         }
 
 
-        if(mode!="cash"){
+        if(mode.equalsIgnoreCase("cash")){
             payment.setPaymentMode(PaymentMode.CASH);
         }
-        if(mode!="upi"){
+        if(mode.equalsIgnoreCase("upi")){
             payment.setPaymentMode(PaymentMode.UPI);
         }
-        if(mode!="card"){
+        if(mode.equalsIgnoreCase("card")){
             payment.setPaymentMode(PaymentMode.CARD);
         }
 
         payment.setPaymentCompleted(true);
         reservation.setPayment(payment);
         payment.setReservation(reservation);
-      //  spot.setOccupied(false);
-     //   spotRepository.save(spot);
+       spot.setOccupied(false);
+        spotRepository.save(spot);
         reservationRepository2.save(reservation);
-       // paymentRepository2.save(payment);
+        paymentRepository2.save(payment);
 
         return payment;
     }
-//    public void fail(Integer reservationId){
-//        Payment payment=new Payment();
-//        payment.setPaymentCompleted(false);
-//        Reservation reservation=reservationRepository2.findById(reservationId).get();
-//        reservation.setPayment(payment);
-//        payment.setReservation(reservation);
-//       // reservationRepository2.save(reservation);
-//        paymentRepository2.save(payment);
-//
-//    }
+
 
 }
