@@ -20,6 +20,10 @@ public class ParkingLot {
         Address = address;
     }
 
+    public ParkingLot() {
+
+    }
+
     public int getId() {
         return id;
     }
