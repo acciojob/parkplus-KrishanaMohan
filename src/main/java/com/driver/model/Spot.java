@@ -8,8 +8,9 @@ import java.util.List;
 
 public class Spot {
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Enumerated(EnumType.STRING)
     private SpotType spotType;
     private int pricePerHour;
     private Boolean occupied;

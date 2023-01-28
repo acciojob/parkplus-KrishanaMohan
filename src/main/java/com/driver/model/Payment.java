@@ -1,15 +1,13 @@
 package com.driver.model;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "payment")
 public class Payment {
     private int id;
     private Boolean paymentCompleted;
+    @Enumerated(EnumType.STRING)
     private PaymentMode paymentMode;
     @OneToOne
     @JoinColumn
