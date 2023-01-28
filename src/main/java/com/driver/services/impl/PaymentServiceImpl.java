@@ -28,7 +28,6 @@ public class PaymentServiceImpl implements PaymentService {
         Reservation reservation=reservationRepository2.findById(reservationId).get();
         if(reservation==null) {
 
-            fail(reservationId);
             throw new Exception("Reservation is not Available");
         }
 
@@ -45,10 +44,7 @@ public class PaymentServiceImpl implements PaymentService {
             throw new Exception("Payment mode not detected");
         }
 
-        payment.setPaymentCompleted(true);
-        reservation.setPayment(payment);
-        payment.setReservation(reservation);
-        spot.setOccupied(false);
+
         if(mode!="cash"){
             payment.setPaymentMode(PaymentMode.CASH);
         }
@@ -58,6 +54,11 @@ public class PaymentServiceImpl implements PaymentService {
         if(mode!="card"){
             payment.setPaymentMode(PaymentMode.CARD);
         }
+
+        payment.setPaymentCompleted(true);
+        reservation.setPayment(payment);
+        payment.setReservation(reservation);
+        spot.setOccupied(false);
         spotRepository.save(spot);
         reservationRepository2.save(reservation);
         paymentRepository2.save(payment);
@@ -70,8 +71,9 @@ public class PaymentServiceImpl implements PaymentService {
         Reservation reservation=reservationRepository2.findById(reservationId).get();
         reservation.setPayment(payment);
         payment.setReservation(reservation);
-        paymentRepository2.save(payment);
         reservationRepository2.save(reservation);
+        paymentRepository2.save(payment);
+
     }
 
 }
