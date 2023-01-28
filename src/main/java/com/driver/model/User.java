@@ -48,12 +48,12 @@ public class User {
         this.name = name;
     }
 
-    public String getPhoneNo() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNo(String phoneNo) {
-        this.phoneNumber = phoneNo;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getPassword() {
