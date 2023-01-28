@@ -32,7 +32,7 @@ public class ReservationServiceImpl implements ReservationService {
       Spot spot=null;
        for(int i=0;i<list.size();i++){
            spot=list.get(i);
-           if(!spot.getOccupied()){
+           if(spot!=null && !spot.getOccupied()){
                if(spot.getSpotType()==SpotType.FOUR_WHEELER && 4>=numberOfWheels){
                   spaceAvailable=true;
                   break;

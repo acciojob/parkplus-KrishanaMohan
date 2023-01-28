@@ -11,6 +11,9 @@ public class Payment {
     private int id;
     private Boolean paymentCompleted;
     private PaymentMode paymentMode;
+    @OneToOne
+    @JoinColumn
+    private Reservation reservation;
 
     public Payment() {
     }
@@ -52,9 +55,7 @@ public class Payment {
         this.reservation = reservation;
     }
 
-    @OneToOne
-    @JoinColumn
-    private Reservation reservation;
+
 
 
 }
