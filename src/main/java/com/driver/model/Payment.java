@@ -9,14 +9,14 @@ import javax.persistence.Table;
 @Table(name = "payment")
 public class Payment {
     private int id;
-    private Boolean paymentComplete;
+    private Boolean paymentCompleted;
     private PaymentMode paymentMode;
 
     public Payment() {
     }
 
-    public Payment(Boolean paymentComplete, PaymentMode paymentMode) {
-        this.paymentComplete = paymentComplete;
+    public Payment(Boolean paymentCompleted, PaymentMode paymentMode) {
+        this.paymentCompleted = paymentCompleted;
         this.paymentMode = paymentMode;
     }
 
@@ -28,12 +28,12 @@ public class Payment {
         this.id = id;
     }
 
-    public Boolean getPaymentComplete() {
-        return paymentComplete;
+    public Boolean isPaymentCompleted() {
+        return paymentCompleted;
     }
 
-    public void setPaymentComplete(Boolean paymentComplete) {
-        this.paymentComplete = paymentComplete;
+    public void setPaymentCompleted(Boolean paymentCompleted) {
+        this.paymentCompleted = paymentCompleted;
     }
 
     public PaymentMode getPaymentMode() {

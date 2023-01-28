@@ -42,15 +42,15 @@ public class Spot {
         return spotType;
     }
 
-    public int getPricePerHours() {
+    public int getPricePerHour() {
         return pricePerHour;
     }
 
-    public void setPricePerHours(int pricePerHours) {
+    public void setPricePerHour(int pricePerHours) {
         this.pricePerHour = pricePerHours;
     }
 
-    public Boolean getOccupied() {
+    public Boolean isOccupied() {
         return occupied;
     }
 

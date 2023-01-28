@@ -33,7 +33,7 @@ public class PaymentServiceImpl implements PaymentService {
         }
 
         Spot spot=reservation.getSpot();
-        int time=spot.getPricePerHours();
+        int time=spot.getPricePerHour();
         int cost=time*reservation.getNumberOfHours();
         if(cost>amountSent){
            fail(reservationId);
@@ -45,7 +45,7 @@ public class PaymentServiceImpl implements PaymentService {
             throw new Exception("Payment mode not detected");
         }
 
-        payment.setPaymentComplete(true);
+        payment.setPaymentCompleted(true);
         reservation.setPayment(payment);
         payment.setReservation(reservation);
         spot.setOccupied(false);
@@ -66,7 +66,7 @@ public class PaymentServiceImpl implements PaymentService {
     }
     public void fail(Integer reservationId){
         Payment payment=new Payment();
-        payment.setPaymentComplete(false);
+        payment.setPaymentCompleted(false);
         Reservation reservation=reservationRepository2.findById(reservationId).get();
         reservation.setPayment(payment);
         payment.setReservation(reservation);
